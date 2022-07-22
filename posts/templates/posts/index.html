@@ -1,0 +1,21 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}
+Home
+{% endblock title %}
+    
+
+{% if post_list %}
+
+    {% for post in post_list %}
+        <h1>Posts</h1>
+        <q>
+            <a href="">{{ post.title }}</a>
+            <br>
+            <small>-{{ post.author }}</small>
+            <br>
+        </q>
+    {% endfor %}
+{% else %}
+    <h1>No posts available!</h1>
+{% endif %}
