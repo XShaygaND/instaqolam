@@ -16,9 +16,9 @@ Home
         <li class="list-group-item">
             <img src="{{ post.logo }}" alt="" width="70" height="70" class="d-inline-block align-text-bottom">   
             <div class="d-inline-block">
-                <a href="" class="text-decoration-none">{{ post.title }}</a>
+                <a href="{% url 'detail' post.pk %}" class="text-decoration-none">{{ post.title }}</a>
                 <br>
-                <span>{{ post.body }}</span>
+                <span>{{ post.get_short_body }}</span>
                 <br>
                 <small>-{{ post.author }}</small>
             </div>
