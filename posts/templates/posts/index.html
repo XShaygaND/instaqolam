@@ -1,5 +1,7 @@
 {% extends 'posts/base.html' %}
 
+{% load static %}
+
 {% block title %}
 Home
 {% endblock title %}
@@ -11,16 +13,24 @@ Home
 <h1>Home</h1>
 
 {% if post_list %}
-    <ul class="list-group">
+    <ul class="list-group border border-secondary">
     {% for post in post_list %}
-        <li class="list-group-item">
-            <img src="{{ post.logo }}" alt="" width="70" height="70" class="d-inline-block align-text-bottom">   
-            <div class="d-inline-block">
-                <a href="{% url 'detail' post.pk %}" class="text-decoration-none">{{ post.title }}</a>
+        <li class="list-group-item bg-dark text-white border border-secondary">
+            <a href=""><img src="
+            
+            {% if post.logo %}
+                {{ post.logo.url }}
+            {% else %}
+                {% static 'posts/placeholder.png' %}
+            {% endif %}
+                
+            " alt="" style="height: 70px; width: 70px; object-fit: cover;" class="rounded d-inline-block align-text-bottom"></a>
+            <div class="d-inline-block text-wrap">
+                <a href="" class="text-decoration-none text-light">{{ post.title }}</a>
                 <br>
-                <span>{{ post.get_short_body }}</span>
+                <span>{{ post.body|slice:50 }}</span>
                 <br>
-                <small>-{{ post.author }}</small>
+                <small><span class="text-secondary">{{ post.pub_date.date }} by <a href="" class="text-decoration-none">-{{ post.author }}</a></span></small>
             </div>
         </li>
     {% endfor %}
