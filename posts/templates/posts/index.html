@@ -16,7 +16,7 @@ Home
     <ul class="list-group border border-secondary">
     {% for post in post_list %}
         <li class="list-group-item bg-dark text-white border border-secondary">
-            <a href=""><img src="
+            <a href="{% url 'details' post.pk %}"><img src="
             
             {% if post.logo %}
                 {{ post.logo.url }}
@@ -26,7 +26,7 @@ Home
                 
             " alt="" style="height: 70px; width: 70px; object-fit: cover;" class="rounded d-inline-block align-text-bottom"></a>
             <div class="d-inline-block text-wrap">
-                <a href="" class="text-decoration-none text-light">{{ post.title }}</a>
+                <a href="{% url 'details' post.pk %}" class="text-decoration-none text-light">{{ post.title }}</a>
                 <br>
                 <span>{{ post.body|slice:50 }}</span>
                 <br>

@@ -1,0 +1,34 @@
+{% extends 'posts/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock title %}
+
+
+{% block content %}
+    <br>
+    <h1>
+        <img src="
+            
+            {% if post.logo %}
+                {{ post.logo.url }}
+            {% else %}
+                {% static 'posts/placeholder.png' %}
+            {% endif %}
+                
+            " alt="" style="height: 85px; width: 85px; object-fit: cover;" class="rounded d-inline-block align-text-middle">
+        {{ post.title }}
+    </h1>
+    <small class="text-secondary">{{ post.pub_date }} by <a href="" class="text-decoration-none"><small>-{{ post.author }}</small></a></small>
+    <hr>
+    <p class="text-break">
+        {{ post.body }}
+    </p>
+    <br>
+    <hr>
+    <br>
+    <a href="{% url 'index' %}" class="btn btn-secondary">Back</a>
+{% endblock content %}
+    
