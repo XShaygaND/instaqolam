@@ -1,0 +1,16 @@
+@import '../bootstrap/scss/functions';
+@import '../bootstrap/scss/variables';
+
+$form-file-button-color: $light;
+$form-file-button-bg: $dark;
+$form-file-button-hover-bg: shade-color($form-file-button-bg, 5%);
+
+@import '../bootstrap/scss/mixins/buttons';
+@import '../bootstrap/scss/bootstrap';
+
+.btn-secondary {
+    @include button-variant(
+        $gray-700,
+        $secondary
+    );
+}
