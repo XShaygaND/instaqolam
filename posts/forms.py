@@ -1,8 +1,8 @@
 from django import forms
+
 from .models import Post
 
 class PostForm(forms.ModelForm):
-    
     class Meta:
         model = Post
         fields = ('title', 'body', 'author', 'logo')
@@ -15,12 +15,13 @@ class PostForm(forms.ModelForm):
         }
 
 
-class PostEditForm(forms.ModelForm):
+class PostUpdateForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'body')
+        fields = ('title', 'body', 'logo')
 
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'body': forms.Textarea(attrs={'class': 'form-control'}),
+            'title': forms.TextInput(attrs={'class': 'form-control bg-dark border border-secondary text-light'}),
+            'body': forms.Textarea(attrs={'class': 'form-control bg-dark border border-secondary text-light'}),
+            'logo': forms.ClearableFileInput(attrs={'class': 'form-control bg-dark border border-secondary text-light'}),
         }
