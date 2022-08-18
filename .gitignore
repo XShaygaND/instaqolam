@@ -268,4 +268,7 @@ pip-selfcheck.json
 ### UserData ###
 user_data/*
 
+### Bootstrap ###
+bootstrap
+
 # End of https://www.toptal.com/developers/gitignore/api/virtualenv,python,django
