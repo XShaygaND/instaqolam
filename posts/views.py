@@ -2,6 +2,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 
 from .models import Post
 from .forms import PostForm, PostUpdateForm
@@ -21,6 +22,12 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = "posts/new_post.html"
+    
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.author = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 class PostUpdateView(UpdateView):
     model = Post

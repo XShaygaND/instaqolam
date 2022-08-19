@@ -13,8 +13,8 @@ class Post(models.Model):
 
     title = models.CharField(max_length=75)
     body = models.TextField()
+    author = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
     logo = models.ImageField(upload_to=get_file_path, blank=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
     pub_date = models.DateTimeField(default=datetime.now())
 
 

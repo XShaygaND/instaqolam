@@ -32,7 +32,7 @@ Home
                 <br>
                 <span>{{ post.body|slice:50 }}</span>
                 <br>
-                <small><span class="text-secondary">{{ post.pub_date.date }} by <a href="" class="text-decoration-none">-{{ post.author }}</a></span></small>
+                <small><span class="text-secondary">{{ post.pub_date.date }} by <a href="" class="text-decoration-none text-info">-{{ post.author }}</a></span></small>
             </div>
         </li>
     {% endfor %}

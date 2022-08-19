@@ -14,14 +14,14 @@
         {% endblock title %}
     </title>
     <link rel="stylesheet" href="{% static 'stylesheet/main.css' %}">
-    <script src="{% static 'stylesheet/bootstrap/dist/js/bootstrap.js' %}"></script>
-    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <script src="{% static 'scripts/bootstrap.bundle.js' %}"></script>
+    <link rel="shortcut icon" href="{% static 'instaqolam.png' %}">
 </head>
 <body class="text-white" style="background-color: #15171a;">
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom border-secondary border-opacity-10">
       <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'index' %}">
-          <img src="{% static 'favicon.ico' %}" alt="" width="30" height="30" class="d-inline-block align-text-top">
+          <img src="{% static 'instaqolam.png' %}" alt="" width="30" height="30" class="d-inline-block align-text-top">
           Instaqolam
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,18 +42,26 @@
 
           <hr>
 
-          <ul class="navbar-nav me-right mb-2 mb-lg-0">
-          {% if user.is_authenticated %}
-            <li>
-              <a class="nav-link" href="{% url 'logout' %}" >Logout</a>
-            </li>
-          {% else %}
-            <li>
-              <a class="nav-link" href="{% url 'login' %}" >Login</a>
-            </li>
-          {% endif %}
-          </ul>
+          <ul class="navbar-nav">
 
+          {% if user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ user.username }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="logout">Logout</a></li>
+            </ul>
+          </li>
+
+          {% else %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+          {% endif %}
+
+          </ul>
         </div>
       </div>
     </nav>
