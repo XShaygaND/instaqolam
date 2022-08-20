@@ -8357,3 +8357,19 @@ textarea.form-control-lg {
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #495057;
   --bs-btn-disabled-border-color: #6c757d; }
+
+#moreContentDropdown {
+  --bs-dropdown-padding-y: 0 !important;
+  font-size: 0.875em !important;
+  min-width: 60px !important; }
+
+#moreContentDropdown .dropdown-divider {
+  margin: 0 !important; }
+
+#dropdownTopItem {
+  border-top-left-radius: 0.375rem !important;
+  border-top-right-radius: 0.375rem !important; }
+
+#dropdownBottomItem {
+  border-bottom-left-radius: 0.375rem !important;
+  border-bottom-right-radius: 0.375rem !important; }
