@@ -8373,3 +8373,7 @@ textarea.form-control-lg {
 #dropdownBottomItem {
   border-bottom-left-radius: 0.375rem !important;
   border-bottom-right-radius: 0.375rem !important; }
+
+#disabledDropdownItem:hover, #disabledDropdownItem:focus {
+  background-color: transparent;
+}
