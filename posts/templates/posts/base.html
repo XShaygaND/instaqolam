@@ -71,7 +71,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end bg-dark" aria-labelledby="navbarDropdown">
               <div class="form-group">
-                <form method="POST" , enctype="multipart/form-data" action="{% url 'login' %}">
+                <form method="POST" , enctype="multipart/form-data" action="{% url 'login' %}?next={{ request.path }}">
                   {% csrf_token %}
                   <li><input type="text" name="username" placeholder="Username"
                       class="form-control bg-dark border-0 text-light shadow-none"></li>
