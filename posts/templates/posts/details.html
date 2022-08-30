@@ -33,7 +33,7 @@
         {% if user == post.author %}
 
         <li><a id="dropdownTopItem" class="dropdown-item text-light text-center" href="{% url 'update_post' post.pk %}">edit</a></li>
-        <li><a id="dropdownBottomItem" class="dropdown-item text-danger text-center" href="#">delete</a></li>
+        <li><a id="dropdownBottomItem" class="dropdown-item text-danger text-center" href="{% url 'delete_post' post.pk %}">delete</a></li>
         {% else %}
 
         <li><a id="dropdownTopItem" class="dropdown-item text-light text-center" href="#">bookmark</a></li>
@@ -44,7 +44,7 @@
     </small>
     <hr>
     <p class="text-break">
-        {{ post.body }}
+        {{ post.body|safe|linebreaks }}
     </p>
     <br>
     <hr>

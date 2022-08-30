@@ -1,20 +1,20 @@
 {% extends 'posts/base.html' %}
 
 {% block title %}
-    New Post
+    Editing {{ post.title }}
 {% endblock title %}
 
 
 {% block content %}
 
 <br>
-<h1>New post</h1>
+<h1>Edit Post</h1>
 <hr>
 <div class="form-group">
 <form method="POST", enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button class="btn btn-dark border border-secondary">Post</button>
+    <button class="btn btn-dark border border-secondary">Apply</button>
     <a href="{% url 'index' %}" class="btn btn-secondary border border-secondary">Back</a>
 </form>
 </div>

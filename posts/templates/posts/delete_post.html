@@ -1,0 +1,40 @@
+{% extends 'posts/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock title %}
+
+
+{% block content %}
+    <br>
+    <h1>
+        <img src="
+            
+            {% if post.logo %}
+                {{ post.logo.url }}
+            {% else %}
+                {% static 'posts/placeholder.png' %}
+            {% endif %}
+                
+            " alt="" style="height: 85px; width: 85px; object-fit: cover;" class="rounded d-inline-block align-text-middle">
+        {{ post.title }}
+    </h1>
+    <small class="text-secondary">
+        {{ post.pub_date }}
+    </small>
+    <hr>
+    <p class="text-break">
+        {{ post.body|safe|linebreaks }}
+    </p>
+    <br>
+    <hr>
+    <br>
+    <form method="POST", enctype="multipart/form-data">
+        {% csrf_token %}
+        <button class="btn btn-outline-danger">Delete</button>
+        <a href="{% url 'index' %}" class="btn btn-secondary border border-secondary">Back</a>
+    </form>
+{% endblock content %}
+    
