@@ -10,7 +10,7 @@ from .forms import PostForm
 class PostListView(ListView):
     model = Post
     template_name = 'posts/index.html'
-    ordering = ['-pub_date', '-id']
+    ordering = ['-pub_date', '-pk']
 
 
 class PostDetailView(DetailView):

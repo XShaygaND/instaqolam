@@ -3,18 +3,19 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 from datetime import datetime
+import uuid
 
-def get_file_path(instance, filename):
-    file_extension = filename.split('.')[-1]
-    return f'user_{instance.author}/{instance.pub_date.strftime("%Y/%B/%a-%M")}/logo.{file_extension}'
 
+def get_upload_path(instance, filename):
+    return f'{instance.unique_id}/{filename}'
 
 class Post(models.Model):
 
+    unique_id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     title = models.CharField(max_length=75)
     body = models.TextField()
     author = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
-    logo = models.ImageField(upload_to=get_file_path, blank=True)
+    logo = models.ImageField(upload_to=get_upload_path, blank=True)
     pub_date = models.DateTimeField(default=datetime.now())
 
 
