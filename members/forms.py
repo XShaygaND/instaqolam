@@ -37,13 +37,13 @@ class UserLoginForm(AuthenticationForm):
         self.fields['password'].widget.attrs['class'] = 'form-control bg-dark border border-secondary text-light'
 
 
-class UserProfileCreateForm(forms.ModelForm):
+class UserProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('bio', 'profile_picture')
 
     def __init__(self, *args, **kwargs):
-        super(UserProfileCreateForm, self).__init__(*args, **kwargs)
+        super(UserProfileUpdateForm, self).__init__(*args, **kwargs)
 
         self.fields['bio'].widget.attrs['class'] = 'form-control bg-dark border border-secondary text-light'
         self.fields['profile_picture'].widget.attrs['class'] = 'form-control bg-dark border border-secondary text-light'

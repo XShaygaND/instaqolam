@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from posts.models import Post
 
 from .models import Profile
-from .forms import UserCreateForm, UserLoginForm, UserProfileCreateForm
+from .forms import UserCreateForm, UserLoginForm, UserProfileUpdateForm
 
 
 class UserCreateView(CreateView):
@@ -34,7 +34,7 @@ class UserDetailView(DetailView):
 
 class UserProfileUpdateView(UpdateView):
     model = Profile
-    form_class = UserProfileCreateForm
+    form_class = UserProfileUpdateForm
     template_name = 'members/edit_profile.html'
     success_url = reverse_lazy('index')
 
