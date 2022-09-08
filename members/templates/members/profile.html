@@ -1,0 +1,66 @@
+{% extends 'posts/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ profile.user.username }}
+{% endblock title %}
+
+
+{% block content %}
+
+<br>
+<h1>
+    <img src="
+
+    {% if profile.profile_picture %}
+        {{ profile.profile_picture.url }}
+    {% else %}
+        {% static 'members/placeholder.png' %}
+    {% endif %}
+                                    
+    " alt="" style="height: 70px; width: 70px; object-fit: cover;" class="rounded-circle d-inline-block align-text-center">
+    {{ profile.user.username }}
+</h1>
+
+{% if profile.bio %}
+    <br>
+    <p>{{ profile.bio }}</p>
+{% endif %}
+    
+<hr>
+
+{% if post_list %}
+    <ul class="list-group border border-secondary">
+    {% for post in post_list %}
+        <li class="list-group-item bg-dark text-white border border-secondary">
+            <a href="{% url 'details' post.pk %}"><img src="
+            
+            {% if post.logo %}
+                {{ post.logo.url }}
+            {% else %}
+                {% static 'posts/placeholder.png' %}
+            {% endif %}
+                
+            " alt="" style="height: 70px; width: 70px; object-fit: cover;" class="rounded d-inline-block align-text-bottom"></a>
+            <div class="d-inline-block text-wrap">
+                <a href="{% url 'details' post.pk %}" class="text-decoration-none text-light">{{ post.title }}</a>
+                <br>
+                <span>{{ post.body|slice:50 }}</span>
+                <br>
+                <small>
+                    <span class="text-secondary">{{ post.pub_date.date }}
+                    </span>
+                </small>
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+    <br>
+    <br>
+{% else %}
+    <br>
+    <h3>No posts available!</h1>
+{% endif %}
+
+{% endblock content %}

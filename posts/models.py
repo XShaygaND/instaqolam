@@ -5,9 +5,13 @@ from django.urls import reverse
 from datetime import datetime
 import uuid
 
+from members.storage import OverwriteStorage
+
 
 def get_upload_path(instance, filename):
-    return f'{instance.unique_id}/{filename}'
+    extension = filename.split('.')[-1]
+    return f'{instance.unique_id}/logo.{extension}'
+    
 
 class Post(models.Model):
 
@@ -15,7 +19,7 @@ class Post(models.Model):
     title = models.CharField(max_length=75)
     body = models.TextField()
     author = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
-    logo = models.ImageField(upload_to=get_upload_path, blank=True)
+    logo = models.ImageField(upload_to=get_upload_path, blank=True, storage=OverwriteStorage)
     pub_date = models.DateTimeField(default=datetime.now())
 
 

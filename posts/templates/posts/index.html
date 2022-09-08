@@ -32,7 +32,20 @@ Home
                 <br>
                 <span>{{ post.body|slice:50 }}</span>
                 <br>
-                <small><span class="text-secondary">{{ post.pub_date.date }} by <a href="" class="text-decoration-none text-info">-{{ post.author }}</a></span></small>
+                <small>
+                    <span class="text-secondary">{{ post.pub_date.date }} by
+                        <a href=""><img src="
+            
+                            {% if post.author.profile.profile_picture %}
+                                {{ post.author.profile.profile_picture.url }}
+                            {% else %}
+                                {% static 'members/placeholder.png' %}
+                            {% endif %}
+                                
+                            " alt="" style="height: 25px; width: 25px; object-fit: cover;" class="rounded-circle d-inline-block align-text-center"></a>
+                        <a href="{% url 'profile' post.author.profile.slug %}" class="text-decoration-none text-info d-inline-block">-{{ post.author }}</a>
+                    </span>
+                </small>
             </div>
         </li>
     {% endfor %}
