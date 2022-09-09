@@ -21,6 +21,11 @@
                                     
     " alt="" style="height: 70px; width: 70px; object-fit: cover;" class="rounded-circle d-inline-block align-text-center">
     {{ profile.user.username }}
+    
+    {% if  profile.user == user %}
+        <a href="{% url 'edit_profile' profile.slug %}" class="btn btn-outline-info px-8 py-0">edit</a>
+    {% endif %}    
+
 </h1>
 
 {% if profile.bio %}
@@ -49,8 +54,7 @@
                 <span>{{ post.body|slice:50 }}</span>
                 <br>
                 <small>
-                    <span class="text-secondary">{{ post.pub_date.date }}
-                    </span>
+                    <span class="text-secondary">{{ post.pub_date.date }}</span>
                 </small>
             </div>
         </li>
@@ -62,5 +66,10 @@
     <br>
     <h3>No posts available!</h1>
 {% endif %}
+
+<br>
+<hr>
+<br>
+<a href="{{ request.META.HTTP_REFERER|escape }}" class="btn btn-secondary">Back</a>
 
 {% endblock content %}
