@@ -36,15 +36,15 @@ class PostUpdateView(UpdateView):
     template_name = "posts/update_post.html"
 
     def dispatch(self, request, *args, **kwargs):
-        obj = self.get_object()
-        if request.user.is_authenticated and obj.author == self.request.user:
+        post = self.get_object()
+        if request.user.is_authenticated and post.author == self.request.user:
             return super(PostUpdateView, self).dispatch(request, *args, **kwargs)
         else:
-            return redirect(obj)
+            return redirect(post)
 
 
     def get_success_url(self):         
-        return reverse_lazy('details', args = (self.object.pk,))
+        return reverse_lazy('details', args=(self.object.pk,))
 
 
 class PostDeleteView(DeleteView):

@@ -1,5 +1,6 @@
 from django.contrib.auth.views import LoginView
 from django.views.generic import CreateView, UpdateView, DetailView
+from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 
@@ -14,11 +15,23 @@ class UserCreateView(CreateView):
     template_name = "auth/signup.html"
     success_url = reverse_lazy('login')
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_anonymous:
+            return super(UserCreateView, self).dispatch(request, *args, **kwargs)
+        else:
+            return redirect(reverse_lazy('profile', args=(request.user.profile.slug,)))
+
 
 class UserLoginView(LoginView):
     form_class = UserLoginForm
     template_name = "auth/login.html"
     success_url = reverse_lazy('index')
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_anonymous:
+            return super(UserLoginView, self).dispatch(request, *args, **kwargs)
+        else:
+            return redirect(reverse_lazy('profile', args=(request.user.profile.slug,)))
 
 
 class UserDetailView(DetailView):
@@ -37,6 +50,13 @@ class UserProfileUpdateView(UpdateView):
     form_class = UserProfileUpdateForm
     template_name = 'members/edit_profile.html'
     success_url = reverse_lazy('index')
+
+    def dispatch(self, request, *args, **kwargs):
+        profile = self.get_object()
+        if request.user.is_authenticated and request.user == profile.user:
+            return super(UserProfileUpdateView, self).dispatch(request, *args, **kwargs)
+        else:
+            return redirect(reverse_lazy('profile', args=(profile.slug,)))
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
