@@ -1,8 +1,10 @@
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
+from django.contrib.auth import get_user_model
 from django import forms
 
 from .models import Profile
+
+User = get_user_model()
 
 class UserCreateForm(UserCreationForm):
     class Meta:
@@ -47,3 +49,15 @@ class UserProfileUpdateForm(forms.ModelForm):
 
         self.fields['bio'].widget.attrs['class'] = 'form-control bg-dark border border-secondary text-light'
         self.fields['profile_picture'].widget.attrs['class'] = 'form-control bg-dark border border-secondary text-light'
+
+
+class UserAccountUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name')
+
+    def __init__(self, *args, **kwargs):
+        super(UserAccountUpdateForm, self).__init__(*args, **kwargs)
+
+        self.fields['first_name'].widget.attrs['class'] = 'form-control bg-dark border border-secondary text-light'
+        self.fields['last_name'].widget.attrs['class'] = 'form-control bg-dark border border-secondary text-light'

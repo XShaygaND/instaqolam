@@ -1,14 +1,23 @@
-from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
-from django.template.defaultfilters import slugify
+from django.conf import settings
+from django.db import models
 
 from .storage import OverwriteStorage
+
+User = settings.AUTH_USER_MODEL
 
 
 def get_upload_path(instance, filename):
     extension = filename.split('.')[-1]
     return f'{instance.user.username}/profile_picture.{extension}'
+
+
+class User(AbstractUser):
+    slug = models.SlugField(blank=False, null=False)
+
+    def get_absolute_url(self):
+        return reverse('profile', kwargs={'slug': self.slug})
 
 
 class Profile(models.Model):
@@ -18,9 +27,4 @@ class Profile(models.Model):
     slug = models.SlugField(blank=False, null=False)
 
     def get_absolute_url(self):
-        return reverse('details', kwargs={'slug': self.slug})
-
-        
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.user.username)
-        return super().save(*args, **kwargs)
+        return reverse('profile', kwargs={'slug': self.slug})

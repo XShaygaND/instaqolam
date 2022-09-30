@@ -1,11 +1,13 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.urls import reverse
 
 from datetime import datetime
 import uuid
 
 from members.storage import OverwriteStorage
+
+User = settings.AUTH_USER_MODEL
 
 
 def get_upload_path(instance, filename):

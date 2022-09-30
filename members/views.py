@@ -1,5 +1,6 @@
 from django.contrib.auth.views import LoginView
 from django.views.generic import CreateView, UpdateView, DetailView
+from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
@@ -7,7 +8,9 @@ from django.urls import reverse_lazy
 from posts.models import Post
 
 from .models import Profile
-from .forms import UserCreateForm, UserLoginForm, UserProfileUpdateForm
+from .forms import UserCreateForm, UserLoginForm, UserProfileUpdateForm, UserAccountUpdateForm
+
+User = get_user_model()
 
 
 class UserCreateView(CreateView):
@@ -49,7 +52,6 @@ class UserProfileUpdateView(UpdateView):
     model = Profile
     form_class = UserProfileUpdateForm
     template_name = 'members/edit_profile.html'
-    success_url = reverse_lazy('index')
 
     def dispatch(self, request, *args, **kwargs):
         profile = self.get_object()
@@ -63,3 +65,17 @@ class UserProfileUpdateView(UpdateView):
         self.object.user = self.request.user
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
+
+
+class UserAccountUpdateView(UpdateView):
+    model = User
+    form_class = UserAccountUpdateForm
+    template_name = 'auth/edit_account.html'
+    context_object_name = 'authuser'
+
+    def dispatch(self, request, *args, **kwargs):
+        user = self.get_object()
+        if request.user.is_authenticated and request.user == user:
+            return super(UserAccountUpdateView, self).dispatch(request, *args, **kwargs)
+        else:
+            return redirect(reverse_lazy('profile', args=(user.slug,)))

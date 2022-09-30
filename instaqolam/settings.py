@@ -43,8 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'posts.apps.PostsConfig',
-    'members.apps.MembersConfig',
+    'posts',
+    'members',
 ]
 
 MIDDLEWARE = [
@@ -144,3 +144,6 @@ LOGOUT_URL = 'logout'
 
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
+
+# Authentication User Model
+AUTH_USER_MODEL = 'members.User'
