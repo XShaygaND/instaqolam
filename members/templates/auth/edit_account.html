@@ -19,21 +19,21 @@
     <p class="input-group mb-3">
 
         <input type="email" value="{{ authuser.email }}" name="email" class="form-control bg-dark border border-secondary text-secondary" id="id_email" disabled>
-        <a class="btn btn-outline-info" type="button" id="button-addon2">Edit</a>    
+        <a href="{% url 'email' authuser.slug %}" class="btn btn-outline-info" type="button" id="button-addon2">Edit</a>    
     </p>
     
     <label for="id_username">Username:</label>
     <p class="input-group mb-3">
 
         <input type="text" value="{{ authuser.username }}" name="username" class="form-control bg-dark border border-secondary text-secondary" id="id_username" disabled>
-        <a class="btn btn-outline-info" type="button" id="button-addon2">Edit</a>    
+        <a href="{% url 'username' authuser.slug %}" class="btn btn-outline-info" type="button" id="button-addon2">Edit</a>    
     </p>
 
     <label for="id_password">Password:</label>
     <p class="input-group mb-3">
 
         <input type="password" value="abcd1234" name="username" class="form-control bg-dark border border-secondary text-secondary" id="id_password" disabled>
-        <a class="btn btn-outline-info" type="button" id="button-addon2">Edit</a>    
+        <a href="{% url 'password' authuser.slug %}" class="btn btn-outline-info" type="button" id="button-addon2">Edit</a>    
     </p>
 
     <button class="btn btn-dark border border-secondary">Update</button>

@@ -1,4 +1,4 @@
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.views.generic import CreateView, UpdateView, DetailView
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from posts.models import Post
 
 from .models import Profile
-from .forms import UserCreateForm, UserLoginForm, UserProfileUpdateForm, UserAccountUpdateForm
+from .forms import UserCreateForm, UserLoginForm, UserProfileUpdateForm, UserAccountUpdateForm, UserUsernameChangeForm, UserEmailChangeForm, UserPasswordChangeForm
 
 User = get_user_model()
 
@@ -79,3 +79,54 @@ class UserAccountUpdateView(UpdateView):
             return super(UserAccountUpdateView, self).dispatch(request, *args, **kwargs)
         else:
             return redirect(reverse_lazy('profile', args=(user.slug,)))
+
+
+class UserUsernameChangeView(UpdateView):
+    model = User
+    form_class = UserUsernameChangeForm
+    template_name = 'auth/username.html'
+    context_object_name = 'authuser'
+
+    def dispatch(self, request, *args, **kwargs):
+        user = self.get_object()
+        if request.user.is_authenticated and request.user == user:
+            return super(UserUsernameChangeView, self).dispatch(request, *args, **kwargs)
+        else:
+            return redirect(reverse_lazy('profile', args=(user.slug,)))
+
+
+class UserEmailChangeView(UpdateView):
+    model = User
+    form_class = UserEmailChangeForm
+    template_name = 'auth/email.html'
+    context_object_name = 'authuser'
+
+    def dispatch(self, request, *args, **kwargs):
+        user = self.get_object()
+        if request.user.is_authenticated and request.user == user:
+            return super(UserEmailChangeView, self).dispatch(request, *args, **kwargs)
+        else:
+            return redirect(reverse_lazy('profile', args=(user.slug,)))
+
+
+class UserPasswordChangeView(UpdateView):
+    model = User
+    form_class = UserPasswordChangeForm
+    template_name = 'auth/password.html'
+    context_object_name = 'authuser'
+
+    def get_form_kwargs(self):
+        user = self.get_object()
+        kwargs = super().get_form_kwargs()
+        print(kwargs)
+        kwargs["user"] = user
+        kwargs.pop('instance')
+        return kwargs
+
+    def dispatch(self, request, *args, **kwargs):
+        user = self.get_object()
+        if request.user.is_authenticated and request.user == user:
+            return super(UserPasswordChangeView, self).dispatch(request, *args, **kwargs)
+        else:
+            return redirect(reverse_lazy('profile', args=(user.slug,)))
+

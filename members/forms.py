@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import get_user_model
 from django import forms
 
@@ -61,3 +61,34 @@ class UserAccountUpdateForm(forms.ModelForm):
 
         self.fields['first_name'].widget.attrs['class'] = 'form-control bg-dark border border-secondary text-light'
         self.fields['last_name'].widget.attrs['class'] = 'form-control bg-dark border border-secondary text-light'
+
+class UserUsernameChangeForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username',)
+
+    def __init__(self, *args, **kwargs):
+        super(UserUsernameChangeForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['class'] = 'form-control bg-dark border border-secondary text-light'
+
+
+class UserEmailChangeForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('email',)
+
+    def __init__(self, *args, **kwargs):
+        super(UserEmailChangeForm, self).__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs['class'] = 'form-control bg-dark border border-secondary text-light'
+
+
+class UserPasswordChangeForm(PasswordChangeForm):
+    class Meta:
+        model = User
+        fields = ('old_password', 'new_password1', 'new_password2')
+
+    def __init__(self, *args, **kwargs):
+        super(UserPasswordChangeForm, self).__init__(*args, **kwargs)
+        self.fields['old_password'].widget.attrs['class'] = 'form-control bg-dark border border-secondary text-light'
+        self.fields['new_password1'].widget.attrs['class'] = 'form-control bg-dark border border-secondary text-light'
+        self.fields['new_password2'].widget.attrs['class'] = 'form-control bg-dark border border-secondary text-light'
