@@ -23,6 +23,10 @@ class Post(models.Model):
     author = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
     logo = models.ImageField(upload_to=get_upload_path, blank=True, storage=OverwriteStorage)
     pub_date = models.DateTimeField(default=datetime.now())
+    likes = models.ManyToManyField(User, related_name='blogpost_like')
+
+    def number_of_likes(self):
+        return self.likes.count()
 
 
     def __str__(self):
