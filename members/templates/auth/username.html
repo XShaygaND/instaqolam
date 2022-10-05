@@ -15,7 +15,7 @@
     {% csrf_token %}
     {{ form.as_p }}
     <button class="btn btn-dark border border-secondary">Apply</button>
-    <a href="{% url 'index' %}" class="btn btn-secondary border border-secondary">Back</a>
+    <a href="{% url 'edit_account' user.slug %}" class="btn btn-secondary border border-secondary">Back</a>
 </form>
 </div>
 <br>
