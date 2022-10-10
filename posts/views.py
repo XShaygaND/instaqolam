@@ -1,4 +1,3 @@
-from enum import unique
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, get_object_or_404
@@ -51,6 +50,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         self.object = form.save(commit=False)
         self.object.author = self.request.user
         self.object.save()
+        form.save_m2m()
         return HttpResponseRedirect(self.get_success_url())
 
 class PostUpdateView(UpdateView):
