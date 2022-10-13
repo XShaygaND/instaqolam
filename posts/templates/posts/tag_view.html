@@ -1,0 +1,60 @@
+{% extends 'posts/base.html' %}
+
+{% load static %}
+
+{% block title %}
+{{ view.kwargs.tag }}
+{% endblock title %}
+
+
+{% block content %}
+
+<br>
+<h1>Tag: {{ view.kwargs.tag }}</h1>
+
+<hr>
+
+{% if post_list %}
+    <ul class="list-group border border-secondary">
+    {% for post in post_list %}
+        <li class="list-group-item bg-dark text-white border border-secondary">
+            <a href="{% url 'details' post.pk %}"><img src="
+            
+            {% if post.logo %}
+                {{ post.logo.url }}
+            {% else %}
+                {% static 'posts/placeholder.png' %}
+            {% endif %}
+                
+            " alt="" style="height: 70px; width: 70px; object-fit: cover;" class="rounded d-inline-block align-text-bottom"></a>
+            <div class="d-inline-block text-wrap">
+                <a href="{% url 'details' post.pk %}" class="text-decoration-none text-light">{{ post.title }}</a>
+                <br>
+                <span>{{ post.body|slice:50 }}</span>
+                <br>
+                <small>
+                    <span class="text-secondary">{{ post.pub_date.date }} by
+                        <a href=""><img src="
+            
+                            {% if post.author.profile.profile_picture %}
+                                {{ post.author.profile.profile_picture.url }}
+                            {% else %}
+                                {% static 'members/placeholder.png' %}
+                            {% endif %}
+                                
+                            " alt="" style="height: 25px; width: 25px; object-fit: cover;" class="rounded-circle d-inline-block align-text-center"></a>
+                        <a href="{% url 'profile' post.author.profile.slug %}" class="text-decoration-none text-info d-inline-block">-{{ post.author }}</a>
+                    </span>
+                </small>
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+    <br>
+    <br>
+{% else %}
+    <br>
+    <h3>No posts available!</h1>
+{% endif %}
+
+{% endblock content %}

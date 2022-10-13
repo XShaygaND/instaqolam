@@ -81,3 +81,18 @@ class PostDeleteView(DeleteView):
             return super(PostDeleteView, self).dispatch(request, *args, **kwargs)
         else:
             return redirect(obj)
+
+
+class PostTagListView(ListView):
+    model = Post
+    template_name = "posts/tag_view.html"
+    ordering = ['-pub_date', '-pk']
+    
+    def get_queryset(self):
+        queryset = super(PostTagListView, self).get_queryset()
+        tag = self.kwargs['tag']
+        print(tag)
+        queryset = queryset.filter(tags__name = tag).distinct()
+        return queryset
+    
+        

@@ -44,7 +44,7 @@ class UserDetailView(DetailView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         obj = self.get_object()
-        data['post_list'] = Post.objects.filter(author=obj.user)
+        data['post_list'] = Post.objects.filter(author=obj.user).order_by('-pub_date', '-pk')
         return data
 
 
