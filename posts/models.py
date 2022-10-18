@@ -1,3 +1,4 @@
+from typing import OrderedDict
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
@@ -32,9 +33,9 @@ class Post(models.Model):
     body = models.TextField()
     author = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
     logo = models.ImageField(upload_to=get_upload_path, blank=True, storage=OverwriteStorage)
-    pub_date = models.DateTimeField(default=datetime.now())
+    pub_date = models.DateTimeField(default=datetime.now)
     likes = models.ManyToManyField(User, related_name='blogpost_like')
-    tags = TaggableManager(through=UUIDTaggedItem)
+    tags = TaggableManager(through=UUIDTaggedItem, blank=True)
 
     def number_of_likes(self):
         return self.likes.count()
@@ -45,3 +46,16 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('details', args=((self.pk,)))
+
+    
+class Comment(models.Model):
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    body = models.TextField()
+    pub_date = models.DateTimeField(default=datetime.now)
+
+    class Meta:
+        ordering = ('-pub_date',)
+
+    def __str__(self):
+        return f"{str(self.user)} | on: {self.post.title[:20]}(by {self.post.author}) | {self.body[:20]}"

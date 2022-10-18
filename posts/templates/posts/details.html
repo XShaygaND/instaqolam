@@ -84,5 +84,34 @@
 </small>
 <hr>
 <br>
-<a href="{% url 'index' %}" class="btn btn-secondary">Back</a>
+
+
+{% if user.is_authenticated %}
+<form method="POST" action="{% url 'comment' post.pk %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <textarea placeholder="Comment" name="body" id="id_body" cols="30" rows="6" class="d-inline-block form-control bg-dark border border-secondary text-light" style="width: 25%;" required></textarea>
+    <button name="blogpost_id" value="{{post.pk}}" class="btn btn-dark border border-secondary" style="margin-bottom: 20px;">Post</button>
+</form>
+    
+{% endif %}
+
+{% for comment in post.comments.all %}
+<div>
+    <a href="{% url 'profile' comment.user.profile.slug %}"><img src="
+
+        {% if comment.user.profile.profile_picture %}
+            {{ comment.user.profile.profile_picture.url }}
+        {% else %}
+            {% static 'members/placeholder.png' %}
+        {% endif %}
+            
+        " alt="" style="height: 25px; width: 25px; object-fit: cover;" class="rounded-circle d-inline-block align-text-center"></a>
+    <a href="{% url 'profile' comment.user.profile.slug %}" class="text-decoration-none text-info d-inline-block">-{{ comment.user }}</a>
+    <span class="text-secondary">{{ comment.pub_date.date }}</span>
+    </div>
+    <p style="margin-left: 30px;">{{ comment.body }}</p>
+{% endfor %}
+<br>
+<br>
+    
 {% endblock content %}

@@ -34,7 +34,7 @@ Home
                 <br>
                 <small>
                     <span class="text-secondary">{{ post.pub_date.date }} by
-                        <a href=""><img src="
+                        <a href="{% url 'profile' post.author.profile.slug %}"><img src="
             
                             {% if post.author.profile.profile_picture %}
                                 {{ post.author.profile.profile_picture.url }}

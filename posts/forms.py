@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Post
+from .models import Post, Comment
 
 from taggit import forms as tforms
 
@@ -15,3 +15,9 @@ class PostForm(forms.ModelForm):
             'logo': forms.ClearableFileInput(attrs={'class': 'form-control bg-dark border border-secondary text-light'}),
             'tags': tforms.TagWidget(attrs={'class': 'form-control bg-dark border border-secondary text-light'}),
         }
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('body',)

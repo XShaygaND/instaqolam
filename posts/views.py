@@ -5,7 +5,8 @@ from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 
 from .models import Post
-from .forms import PostForm
+from .forms import PostForm, CommentForm
+
 
 class PostListView(ListView):
     model = Post
@@ -19,6 +20,25 @@ def PostLikeView(request, pk):
         post.likes.remove(request.user)
     else:
         post.likes.add(request.user)
+
+    return HttpResponseRedirect(reverse('details', args=[str(pk)]))
+
+
+def PostCommentView(request, pk):
+    print(request.POST)
+    post = get_object_or_404(Post, unique_id=request.POST.get('blogpost_id'))
+    data = request.POST.copy()
+    if request.method == 'POST':
+        comment_form = CommentForm(data=data)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.user = request.user
+            new_comment.post = post
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+
+    print(data)
 
     return HttpResponseRedirect(reverse('details', args=[str(pk)]))
 
@@ -45,13 +65,14 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = "posts/new_post.html"
-    
+
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.author = self.request.user
         self.object.save()
         form.save_m2m()
         return HttpResponseRedirect(self.get_success_url())
+
 
 class PostUpdateView(UpdateView):
     model = Post
@@ -65,8 +86,7 @@ class PostUpdateView(UpdateView):
         else:
             return redirect(post)
 
-
-    def get_success_url(self):         
+    def get_success_url(self):
         return reverse_lazy('details', args=(self.object.pk,))
 
 
@@ -87,12 +107,10 @@ class PostTagListView(ListView):
     model = Post
     template_name = "posts/tag_view.html"
     ordering = ['-pub_date', '-pk']
-    
+
     def get_queryset(self):
         queryset = super(PostTagListView, self).get_queryset()
         tag = self.kwargs['tag']
         print(tag)
-        queryset = queryset.filter(tags__name = tag).distinct()
+        queryset = queryset.filter(tags__name=tag).distinct()
         return queryset
-    
-        
