@@ -60,16 +60,15 @@
         </li>
     {% endfor %}
     </ul>
-    <br>
-    <br>
 {% else %}
     <br>
     <h3>No posts available!</h1>
 {% endif %}
 
-<br>
 <hr>
-<br>
+
 <a href="{{ request.META.HTTP_REFERER|escape }}" class="btn btn-secondary">Back</a>
+<br>
+<br>
 
 {% endblock content %}
