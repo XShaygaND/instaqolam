@@ -2,10 +2,11 @@ from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
 import os
-import pathlib
 
 
 class OverwriteStorage(FileSystemStorage):
+    """An overwrite storade which inherits from django.core.files.storage.FileSystemStorage
+    It simply replaces the file if the file already exists instead of adding a renamed file"""
 
     def get_available_name(self, name, max_length=None):
         if self.exists(name):

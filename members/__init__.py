@@ -1,1 +1,1 @@
-default_app_config = 'members.apps.MembersConfig'
+default_app_config = 'members.apps.MembersConfig' # This had to be declared so signals.py would work, Don't ask why :>

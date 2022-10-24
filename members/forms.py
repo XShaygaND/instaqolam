@@ -7,6 +7,8 @@ from .models import Profile
 User = get_user_model()
 
 class UserCreateForm(UserCreationForm):
+    """A form that inherits from django.contrib.auth.forms.UserCreationForm which it's fields are bootstrapified and first and last name and email field are required"""
+        
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email', 'username', 'password1', 'password2')
@@ -28,6 +30,8 @@ class UserCreateForm(UserCreationForm):
 
 
 class UserLoginForm(AuthenticationForm):
+    """A form that inherits from django.contrib.auth.forms.AuthenticationForm which it's fields are bootstrapified"""
+        
     class Meta:
         model = User
         fields = ('username', 'password')
@@ -40,6 +44,8 @@ class UserLoginForm(AuthenticationForm):
 
 
 class UserProfileUpdateForm(forms.ModelForm):
+    """A basic form for updating user profile which has bio and profile_picture fields and the fields are bootstrapified"""
+
     class Meta:
         model = Profile
         fields = ('bio', 'profile_picture')
@@ -52,6 +58,9 @@ class UserProfileUpdateForm(forms.ModelForm):
 
 
 class UserAccountUpdateForm(forms.ModelForm):
+    """A basic form for updating user account which has first_name and last_name fields, other fields are shown in the template but not changable in this form
+    Fields are bootstrapified"""
+
     class Meta:
         model = User
         fields = ('first_name', 'last_name')
@@ -63,6 +72,8 @@ class UserAccountUpdateForm(forms.ModelForm):
         self.fields['last_name'].widget.attrs['class'] = 'form-control bg-dark border border-secondary text-light'
 
 class UserUsernameChangeForm(forms.ModelForm):
+    """A basic form for changing the User's username which only has a username field and the field is bootstrapified"""
+
     class Meta:
         model = User
         fields = ('username',)
@@ -73,6 +84,8 @@ class UserUsernameChangeForm(forms.ModelForm):
 
 
 class UserEmailChangeForm(forms.ModelForm):
+    """A basic form for changing the User's email address which only has an email field and the field is bootstrapified"""
+
     class Meta:
         model = User
         fields = ('email',)
@@ -83,6 +96,9 @@ class UserEmailChangeForm(forms.ModelForm):
 
 
 class UserPasswordChangeForm(PasswordChangeForm):
+    """A form that inherits from django.contrib.auth.forms.PasswordChangeForm which has old password and a combination of the new password and it's confirmation
+    Fields are bootstrapified"""
+
     class Meta:
         model = User
         fields = ('old_password', 'new_password1', 'new_password2')
