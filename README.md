@@ -16,7 +16,7 @@ Install required packages
 
 Clone project to your computer
 
-	git clone git@github.com:XShaygaND/instaqolam.git
+	git clone https://github.com/XShaygaND/instaqolam.git
 
 Create migrations
 
