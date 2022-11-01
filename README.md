@@ -1,8 +1,8 @@
 # Instaqolam
-![GitHub](https://img.shields.io/github/license/XShaygaND/instaqolam)
-![GitHub last commit](https://img.shields.io/github/last-commit/XShaygaND/instaqolam)
-![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/XShaygaND/instaqolam)
-![Django Version](https://img.shields.io/badge/django-4.1-green)
+[![GitHub](https://img.shields.io/github/license/XShaygaND/instaqolam)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+[![GitHub last commit](https://img.shields.io/github/last-commit/XShaygaND/instaqolam)](https://github.com/XShaygaND/instaqolam)
+[![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/XShaygaND/instaqolam)]((https://python.org))
+[![Django Version](https://img.shields.io/badge/django-4.1-green)](https://djangoproject.com)
 
 Instaqolam is a weblog in which you have the ability to view, create, edit and delete posts and you also have the ability to like and comment on posts.
 
