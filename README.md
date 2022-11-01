@@ -1,4 +1,5 @@
 # Instaqolam
+![GitHub](https://img.shields.io/github/license/XShaygaND/instaqolam)
 ![GitHub last commit](https://img.shields.io/github/last-commit/XShaygaND/instaqolam)
 ![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/XShaygaND/instaqolam)
 ![Django Version](https://img.shields.io/badge/django-4.1-green)
